@@ -40,7 +40,7 @@ body {
 }
 
 // ==========================================
-// NAVBAR (Responsive)
+// NAVBAR (Responsive Mobile-First)
 // ==========================================
 .navbar { 
   display: flex; 
@@ -231,7 +231,7 @@ body {
   right: 10px; 
   width: calc(100vw - 20px); 
   max-width: 340px; 
-  max-height: 80vh; // Para evitar que se salga en celulares acostados o muy pequeños
+  max-height: 80vh; 
   
   @media (min-width: 480px) {
     bottom: 95px; 
@@ -268,7 +268,7 @@ body {
     display: flex; 
     flex-direction: column; 
     gap: 0.75rem; 
-    overflow-y: auto; // Permite scroll interno si el chat crece mucho
+    overflow-y: auto; 
 
     .chat-historial {
       display: flex; 
@@ -315,11 +315,31 @@ body {
       font-weight: bold; 
       text-align: left; 
       font-size: 0.85rem; 
+      transition: all 0.2s ease;
 
       &:hover { 
         background: #e2e2e2; 
       } 
     } 
+
+    // NUEVO: Estilo para resaltar el botón de votación
+    .btn-votar-destacado {
+      background: $color-naranja;
+      color: $color-blanco;
+      border: none;
+      text-align: center;
+      padding: 0.8rem;
+      font-size: 0.9rem;
+      box-shadow: 0 4px 10px rgba($color-naranja, 0.3);
+      animation: pulseNaranja 2s infinite;
+
+      &:hover {
+        background: $color-naranja-oscuro;
+        color: $color-blanco;
+        animation: none;
+        transform: scale(1.02);
+      }
+    }
 
     .faq-section { 
       margin-top: 0.2rem; 
@@ -369,7 +389,7 @@ body {
         border-radius: 4px; 
         font-size: 0.85rem; 
         outline: none;
-        width: 100%; // Asegura que no se desborde
+        width: 100%;
 
         &:focus { 
           border-color: $color-naranja; 
@@ -439,18 +459,18 @@ body {
   .modal-content {
     background: $color-blanco;
     border-radius: $radio-borde;
-    padding: 1.5rem; // Padding menor en celulares
+    padding: 1.5rem;
     width: 100%;
     max-width: 450px;
-    max-height: 90vh; // Previene que el modal sea más grande que la pantalla
-    overflow-y: auto; // Agrega scroll si el texto es muy largo
+    max-height: 90vh;
+    overflow-y: auto;
     position: relative;
     box-shadow: $sombra-fuerte;
     transform: translateY(-20px);
     transition: transform 0.3s ease;
 
     @media (min-width: 480px) {
-      padding: 2rem; // Padding normal en pantallas grandes
+      padding: 2rem;
     }
 
     h3 { 
@@ -493,10 +513,10 @@ body {
     .modal-acciones {
       display: flex; 
       gap: 0.5rem; 
-      flex-direction: column; // Botones apilados en celulares
+      flex-direction: column;
       
       @media (min-width: 480px) { 
-        flex-direction: row; // Botones en fila en pantallas más grandes
+        flex-direction: row; 
       }
       
       button { 
@@ -636,18 +656,17 @@ section {
     padding-bottom: 0.5rem; 
   } 
 
-  // Ajuste intermedio de columnas para tablets
   .grid-4 { 
     display: grid; 
     gap: 1rem; 
-    grid-template-columns: 1fr; // Celulares (1 columna)
+    grid-template-columns: 1fr; 
 
     @media (min-width: 480px) { 
-      grid-template-columns: repeat(2, 1fr); // Tablets pequeñas (2 columnas)
+      grid-template-columns: repeat(2, 1fr); 
     } 
 
     @media (min-width: 1024px) { 
-      grid-template-columns: repeat(4, 1fr); // Escritorio (4 columnas)
+      grid-template-columns: repeat(4, 1fr); 
     } 
   } 
 
@@ -837,4 +856,11 @@ section {
     opacity: 1; 
     transform: translateY(0); 
   } 
+}
+
+// Animación de pulso para el botón destacado del chatbot
+@keyframes pulseNaranja {
+  0% { box-shadow: 0 0 0 0 rgba($color-naranja, 0.4); }
+  70% { box-shadow: 0 0 0 8px rgba($color-naranja, 0); }
+  100% { box-shadow: 0 0 0 0 rgba($color-naranja, 0); }
 }

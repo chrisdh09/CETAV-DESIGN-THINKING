@@ -178,7 +178,8 @@
                     <div class="msg bot-msg">¡Hola! ¿En qué te puedo ayudar hoy?</div>
                 </div>
                 <div id="chat-opciones">
-                    <button class="btn-chat chat-interactivo" data-reply="votar">Votar por actividades del mes</button>
+                    <button class="btn-chat btn-votar-destacado chat-interactivo" data-reply="votar">⭐ Votar por
+                        actividades del mes</button>
                     <div class="faq-section">
                         <span class="faq-titulo">Preguntas Frecuentes:</span>
                         <div class="faq-grid">
@@ -283,6 +284,148 @@
           <strong>4.</strong> Voluntariado Ambiental<br><br>
           ¿Cuál es tu favorita?
         `;
+                agregarMensaje(opcionesActividades, 'bot');
+            }
+
+            botonesChat.forEach(boton => {
+                boton.addEventListener('click', (e) => {
+                    const textoBoton = e.target.innerText.replace(/📍|🕒|📞|📅/g, '').trim();
+                    const tipoRespuesta = e.target.getAttribute('data-reply');
+                    agregarMensaje(textoBoton, 'user');
+                    setTimeout(() => {
+                        if (tipoRespuesta === 'votar') { iniciarVotacion(); }
+                        else { agregarMensaje(respuestasBot[tipoRespuesta], 'bot'); }
+                    }, 500);
+                });
+            });
+
+            function procesarInputUsuario() {
+                const texto = inputChat.value.trim();
+                if (!texto) return;
+
+                agregarMensaje(texto, 'user');
+                inputChat.value = '';
+
+                setTimeout(() => {
+                    if (estadoChat === 'esperando_actividad') {
+                        actividadSeleccionada = texto;
+                        estadoChat = 'esperando_correo';
+                        inputChat.placeholder = "ejemplo@correo.com";
+                        agregarMensaje(`Excelente, anotamos tu preferencia por: <strong>${actividadSeleccionada}</strong>.<br><br>Para validar tu voto y avisarte si se aprueba, por favor escribí tu correo electrónico:`, 'bot');
+
+                    } else if (estadoChat === 'esperando_correo') {
+                        const correo = texto;
+                        estadoChat = 'inicio';
+                        inputChat.disabled = true;
+                        btnSend.disabled = true;
+                        inputChat.placeholder = "Chat finalizado";
+                        divOpciones.style.display = 'block';
+                        agregarMensaje(`¡Listo! Hemos registrado tu voto con el correo <strong>${correo}</strong>.<br><br>¿En qué más te puedo ayudar?`, 'bot');
+                    }
+                }, 600);
+            }
+
+            btnSend.addEventListener('click', procesarInputUsuario);
+            inputChat.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') procesarInputUsuario();
+            });
+        });
+
+        <!-- SCRIPT PARA CHATBOT Y MODAL -->
+        document.addEventListener('DOMContentLoaded', () => {
+            // -----------------------------------------
+            // 1. LÓGICA DEL MODAL DE CALENDARIO
+            // -----------------------------------------
+            const modal = document.getElementById('modal-actividad');
+            const btnCerrarModal = document.querySelector('.close-modal');
+            const botonesDetalles = document.querySelectorAll('.btn-detalles');
+
+            const elTitulo = document.getElementById('modal-titulo');
+            const elHora = document.getElementById('modal-hora');
+            const elLugar = document.getElementById('modal-lugar');
+            const elDesc = document.getElementById('modal-desc');
+
+            // Selección de los botones de acción dentro del modal
+            const btnGuardarCal = document.querySelector('.btn-outline-modal');
+            const btnConfirmar = document.querySelector('.btn-primario-modal');
+
+            botonesDetalles.forEach(boton => {
+                boton.addEventListener('click', (e) => {
+                    const datos = e.target.dataset;
+
+                    elTitulo.textContent = datos.titulo;
+                    elHora.textContent = datos.hora;
+                    elLugar.textContent = datos.lugar;
+                    elDesc.textContent = datos.desc;
+
+                    modal.classList.add('active');
+                });
+            });
+
+            // Alertas simuladas al hacer clic en los botones
+            btnGuardarCal.addEventListener('click', () => {
+                const tituloActividad = elTitulo.textContent;
+                alert(`¡Listo! La actividad "${tituloActividad}" ha sido agendada exitosamente en tu calendario 'Andre TCU'.`);
+                modal.classList.remove('active'); // Cierra el modal después de aceptar
+            });
+
+            btnConfirmar.addEventListener('click', () => {
+                const tituloActividad = elTitulo.textContent;
+                alert(`¡Asistencia confirmada para "${tituloActividad}"! Te enviamos un comprobante al correo para que lo adjuntes a tu reporte de horas.`);
+                modal.classList.remove('active'); // Cierra el modal después de aceptar
+            });
+
+            btnCerrarModal.addEventListener('click', () => {
+                modal.classList.remove('active');
+            });
+
+            window.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.classList.remove('active');
+                }
+            });
+
+            // -----------------------------------------
+            // 2. LÓGICA DEL CHATBOT INTERACTIVO
+            // -----------------------------------------
+            const botonesChat = document.querySelectorAll('.chat-interactivo');
+            const historialChat = document.getElementById('chat-historial');
+            const inputChat = document.getElementById('chat-input');
+            const btnSend = document.getElementById('chat-send');
+            const divOpciones = document.getElementById('chat-opciones');
+
+            let estadoChat = 'inicio';
+            let actividadSeleccionada = '';
+
+            const respuestasBot = {
+                "llegar": "Estamos ubicados en Fátima de Desamparados. Podés buscar 'Parque La Libertad' en Waze.",
+                "horarios": "El parque está abierto todos los días de 5:00 a.m. a 6:00 p.m.",
+                "contacto": "Escribinos a info@lalibertadcr.org o llamanos al +506 2276-9400.",
+                "cursos": "Las matrículas abren la primera semana del mes. Revisá el Portal Web Ultraligero."
+            };
+
+            function agregarMensaje(texto, emisor) {
+                const clase = emisor === 'bot' ? 'bot-msg' : 'user-msg';
+                historialChat.innerHTML += `<div class="msg ${clase}">${texto}</div>`;
+                historialChat.scrollTop = historialChat.scrollHeight;
+            }
+
+            function iniciarVotacion() {
+                estadoChat = 'esperando_actividad';
+                divOpciones.style.display = 'none';
+                inputChat.disabled = false;
+                btnSend.disabled = false;
+                inputChat.focus();
+                inputChat.placeholder = "Digita el número o nombre...";
+
+                const opcionesActividades = `
+            ¡Genial! Estas son las propuestas del mes:<br><br>
+                <strong>1.</strong> Taller de Arte Urbano<br>
+                    <strong>2.</strong> Curso de HTML y SCSS<br>
+                        <strong>3.</strong> Danza Contemporánea<br>
+                            <strong>4.</strong> Voluntariado Ambiental<br><br>
+                                ¿Cuál es tu favorita?
+                                `;
                 agregarMensaje(opcionesActividades, 'bot');
             }
 
