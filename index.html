@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Parque La Libertad - Clon Low-Fi</title>
+  <link rel="stylesheet" href="./public/css/styles.css">
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="logo">LaLibertad</div>
+    <input type="checkbox" id="menu-toggle" hidden>
+    <label for="menu-toggle" class="menu-icon">☰</label>
+    <nav class="nav-links">
+      <a href="index.html">Inicio</a>
+      <a href="#">Acerca de la Fundación <span class="arrow">▼</span></a>
+      <a href="#">Ejes <span class="arrow">▼</span></a>
+      <a href="#">Parques <span class="arrow">▼</span></a>
+      <a href="#">Red de Colaboradores</a>
+      <a href="portal.html" class="link-ultraligero">Portal Web Ultraligero</a>
+      <a href="#">Noticias y Vistas</a>
+      <a href="#">Contacto</a>
+      <button class="btn-donar">DONAR</button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1>Fundación <span>Libertad</span></h1>
+    </section>
+
+    <section class="banner-donacion">
+      <h2>Sumate y doná <br> Libertad para todo Costa Rica</h2>
+    </section>
+
+    <section class="seccion-info">
+      <div class="texto">
+        <h3>¿Qué nos hace crecer?</h3>
+        <p>Creamos condiciones para alcanzar logros de libertad. Trabajamos por la inclusión social, empoderamiento y oportunidades de desarrollo.</p>
+      </div>
+      <div class="video-placeholder">
+        <span>Video: La Libertad en tu historia</span>
+      </div>
+    </section>
+
+    <section class="seccion-grid">
+      <h3>Matrículas abiertas</h3>
+      <div class="grid-4">
+        <article class="card">Cursos Libres Baile</article>
+        <article class="card">Pre y reincorporación</article>
+        <article class="card">Danza Jr Jueves</article>
+        <article class="card">Programa Inglés</article>
+      </div>
+    </section>
+
+    <section class="seccion-grid">
+      <h3>Servicios a la comunidad</h3>
+      <div class="grid-4">
+        <article class="card">Vacaciones con La Libertad</article>
+        <article class="card">Zumba Niños</article>
+        <article class="card">Sesiones de Kickboxing</article>
+        <article class="card">Cardio Dance</article>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER Y CHATBOT -->
+  <footer class="footer-principal">
+    <div class="footer-contenido">
+      <div class="logos-footer">LaLibertad</div>
+      <p>Contáctenos: info@lalibertadcr.org | Tel: +506 2276-9400</p>
+    </div>
+
+    <input type="checkbox" id="chatbot-toggle" hidden>
+    
+    <div class="chatbot-alerta">
+      <p>¿Querés escoger las siguientes actividades para el próximo mes?</p>
+    </div>
+
+    <div class="chatbot-widget">
+      <div class="chatbot-header">
+        <span>Buzón y Asistente Virtual</span>
+        <label for="chatbot-toggle" class="close-btn">✖</label>
+      </div>
+      
+      <div class="chatbot-body">
+        <!-- Historial de mensajes -->
+        <div class="chat-historial" id="chat-historial">
+          <div class="msg bot-msg">¡Hola! ¿En qué te puedo ayudar hoy?</div>
+        </div>
+        
+        <!-- Opciones rápidas -->
+        <div id="chat-opciones">
+          <button class="btn-chat chat-interactivo" data-reply="votar">Votar por actividades del mes</button>
+          <div class="faq-section">
+            <span class="faq-titulo">Preguntas Frecuentes:</span>
+            <div class="faq-grid">
+              <button class="sub-btn chat-interactivo" data-reply="llegar">📍 Cómo llegar</button>
+              <button class="sub-btn chat-interactivo" data-reply="horarios">🕒 Horarios</button>
+              <button class="sub-btn chat-interactivo" data-reply="contacto">📞 Contactos</button>
+              <button class="sub-btn chat-interactivo" data-reply="cursos">📅 Cursos</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Nueva Zona de Input (Deshabilitada por defecto) -->
+        <div class="chat-input-container">
+          <input type="text" id="chat-input" placeholder="Escribe aquí..." disabled>
+          <button id="chat-send" disabled>➤</button>
+        </div>
+      </div>
+    </div>
+
+    <label for="chatbot-toggle" class="chatbot-fab">
+      <span class="icon-open">💬</span>
+      <span class="icon-close">✖</span>
+    </label>
+  </footer>
+
+  <!-- SCRIPT DE SIMULACIÓN INTERACTIVA -->
+  <script src="chat-logic.js"></script>
+  <script>
+    // Se inserta la lógica aquí mismo para mantenerlo simple y sin archivos extra
+    document.addEventListener('DOMContentLoaded', () => {
+      const botonesChat = document.querySelectorAll('.chat-interactivo');
+      const historialChat = document.getElementById('chat-historial');
+      const inputChat = document.getElementById('chat-input');
+      const btnSend = document.getElementById('chat-send');
+      const divOpciones = document.getElementById('chat-opciones');
+
+      let estadoChat = 'inicio'; // Posibles: inicio, esperando_actividad, esperando_correo
+      let actividadSeleccionada = '';
+
+      const respuestasBot = {
+        "llegar": "Estamos ubicados en Fátima de Desamparados. Podés buscar 'Parque La Libertad' en Waze.",
+        "horarios": "El parque está abierto todos los días de 5:00 a.m. a 6:00 p.m.",
+        "contacto": "Escribinos a info@lalibertadcr.org o llamanos al +506 2276-9400.",
+        "cursos": "Las matrículas abren la primera semana del mes. Revisá el Portal Web Ultraligero."
+      };
+
+      function agregarMensaje(texto, emisor) {
+        const clase = emisor === 'bot' ? 'bot-msg' : 'user-msg';
+        historialChat.innerHTML += `<div class="msg ${clase}">${texto}</div>`;
+        historialChat.scrollTop = historialChat.scrollHeight;
+      }
+
+      function iniciarVotacion() {
+        estadoChat = 'esperando_actividad';
+        divOpciones.style.display = 'none'; // Ocultar botones para dar espacio
+        inputChat.disabled = false;
+        btnSend.disabled = false;
+        inputChat.focus();
+        inputChat.placeholder = "Digita el número o nombre...";
+
+        const opcionesActividades = `
+          ¡Genial! Estas son las propuestas del mes:<br><br>
+          <strong>1.</strong> Taller de Arte Urbano<br>
+          <strong>2.</strong> Curso de HTML y SCSS<br>
+          <strong>3.</strong> Danza Contemporánea<br>
+          <strong>4.</strong> Voluntariado Ambiental<br><br>
+          ¿Cuál es tu favorita?
+        `;
+        agregarMensaje(opcionesActividades, 'bot');
+      }
+
+      // Manejo de clics en botones rápidos
+      botonesChat.forEach(boton => {
+        boton.addEventListener('click', (e) => {
+          const textoBoton = e.target.innerText.replace(/📍|🕒|📞|📅/g, '').trim();
+          const tipoRespuesta = e.target.getAttribute('data-reply');
+
+          agregarMensaje(textoBoton, 'user');
+
+          setTimeout(() => {
+            if (tipoRespuesta === 'votar') {
+              iniciarVotacion();
+            } else {
+              agregarMensaje(respuestasBot[tipoRespuesta], 'bot');
+            }
+          }, 500);
+        });
+      });
+
+      // Manejo de ingreso de texto (Simulación del flujo)
+      function procesarInputUsuario() {
+        const texto = inputChat.value.trim();
+        if (!texto) return;
+
+        agregarMensaje(texto, 'user');
+        inputChat.value = '';
+
+        setTimeout(() => {
+          if (estadoChat === 'esperando_actividad') {
+            actividadSeleccionada = texto;
+            estadoChat = 'esperando_correo';
+            inputChat.placeholder = "ejemplo@correo.com";
+            agregarMensaje(`Excelente, anotamos tu preferencia por: <strong>${actividadSeleccionada}</strong>.<br><br>Para validar tu voto y avisarte si se aprueba, por favor escribí tu correo electrónico:`, 'bot');
+          
+          } else if (estadoChat === 'esperando_correo') {
+            const correo = texto;
+            estadoChat = 'inicio';
+            
+            // Finalizar simulación
+            inputChat.disabled = true;
+            btnSend.disabled = true;
+            inputChat.placeholder = "Chat finalizado";
+            divOpciones.style.display = 'block'; // Volver a mostrar botones
+            
+            agregarMensaje(`¡Listo! Hemos registrado tu voto con el correo <strong>${correo}</strong>.<br><br>¿En qué más te puedo ayudar?`, 'bot');
+          }
+        }, 600);
+      }
+
+      btnSend.addEventListener('click', procesarInputUsuario);
+      inputChat.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') procesarInputUsuario();
+      });
+    });
+  </script>
+
+</body>
+</html>

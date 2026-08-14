@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Ultraligero - Calendario</title>
+    <link rel="stylesheet" href="./public/css/styles.css">
+</head>
+
+<body class="fondo-portal">
+
+    <!-- NAVBAR -->
+    <header class="navbar">
+        <div class="logo">LaLibertad</div>
+        <input type="checkbox" id="menu-toggle" hidden>
+        <label for="menu-toggle" class="menu-icon">☰</label>
+        <nav class="nav-links">
+            <a href="index.html">Inicio</a>
+            <a href="#">Acerca de la Fundación <span class="arrow">▼</span></a>
+            <a href="#">Ejes <span class="arrow">▼</span></a>
+            <a href="#">Parques <span class="arrow">▼</span></a>
+            <a href="#">Red de Colaboradores</a>
+            <a href="portal.html" class="link-ultraligero">Portal Web Ultraligero</a>
+            <a href="#">Noticias y Vistas</a>
+            <a href="#">Contacto</a>
+            <button class="btn-donar">DONAR</button>
+        </nav>
+    </header>
+
+    <!-- CALENDARIO EN GRILLA -->
+    <main class="contenedor-calendario">
+        <div class="cabecera-portal">
+            <h2>Calendario Rápido de Actividades</h2>
+            <p>Optimizado para cargar rápido sin consumir tus datos.</p>
+        </div>
+
+        <div class="calendario-mes">
+            <div class="dias-semana">
+                <span>Lunes</span><span>Martes</span><span>Miércoles</span><span>Jueves</span><span>Viernes</span><span>Sábado</span><span>Domingo</span>
+            </div>
+
+            <div class="grilla-dias">
+                <div class="dia vacio"></div>
+                <div class="dia vacio"></div>
+                <div class="dia vacio"></div>
+
+                <!-- JUEVES -->
+                <div class="dia"><span class="num-dia">13</span>
+                    <div class="actividades">
+                        <div class="evento"><strong>18:30</strong> Taller de SCSS Avanzado
+                            <button class="btn-inscribir btn-detalles" data-titulo="Taller de SCSS Avanzado"
+                                data-hora="18:30 - 20:30" data-lugar="Laboratorio Maker 1"
+                                data-desc="Espacio de práctica y desarrollo frontend. Ideal para sumar horas de TCU aplicando HTML y SCSS en proyectos reales de la comunidad. Traer computadora portátil si es posible.">Detalles</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- VIERNES -->
+                <div class="dia"><span class="num-dia">14</span>
+                    <div class="actividades">
+                        <div class="evento"><strong>18:30</strong> Noche de Cine Comunitario
+                            <button class="btn-inscribir btn-detalles" data-titulo="Noche de Cine Comunitario"
+                                data-hora="18:30 - 21:00" data-lugar="Anfiteatro Principal"
+                                data-desc="Proyección al aire libre de cine independiente. Ven con tu familia, trae tu manta, algo para picar y disfruta de una noche bajo las estrellas.">Detalles</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SÁBADO -->
+                <div class="dia"><span class="num-dia">15</span>
+                    <div class="actividades">
+                        <div class="evento"><strong>10:00 am</strong> Taller de Arte Urbano
+                            <button class="btn-inscribir btn-detalles" data-titulo="Taller de Arte Urbano"
+                                data-hora="10:00 am - 12:00 md" data-lugar="Plaza de las Artes"
+                                data-desc="Aprende técnicas básicas de muralismo y uso correcto de aerosoles. Actividad al aire libre, se recomienda traer ropa cómoda que se pueda manchar.">Detalles</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DOMINGO -->
+                <div class="dia"><span class="num-dia">16</span>
+                    <div class="actividades">
+                        <div class="evento"><strong>10:00 am</strong> Voluntariado Ambiental
+                            <button class="btn-inscribir btn-detalles" data-titulo="Voluntariado Ambiental"
+                                data-hora="10:00 am - 13:00 pm" data-lugar="Zona Verde Sur"
+                                data-desc="Jornada intensiva de recolección de residuos y siembra de árboles nativos. Participación completamente válida para el registro y avance de horas de TCU.">Detalles</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dia"><span class="num-dia">17</span></div>
+                <div class="dia"><span class="num-dia">18</span></div>
+                <div class="dia"><span class="num-dia">19</span></div>
+
+                <div class="dia"><span class="num-dia">20</span>
+                    <div class="actividades">
+                        <div class="evento"><strong>18:30</strong> Cursos Técnicos (HTML5)
+                            <button class="btn-inscribir btn-detalles" data-titulo="Introducción a HTML5"
+                                data-hora="18:30 - 20:30" data-lugar="Virtual (Zoom)"
+                                data-desc="Aprende la estructura básica de la web. Curso introductorio para futuros desarrolladores.">Detalles</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dia"><span class="num-dia">21</span>
+                    <div class="actividades">
+                        <div class="evento"><strong>18:30</strong> Charla: Gestión de Proyectos
+                            <button class="btn-inscribir btn-detalles" data-titulo="Charla: Gestión de Proyectos"
+                                data-hora="18:30 - 19:30" data-lugar="Auditorio Central"
+                                data-desc="Aprende a estructurar tus cronogramas y cumplir metas antes de fechas límites importantes utilizando metodologías ágiles.">Detalles</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dia"><span class="num-dia">22</span>
+                    <div class="actividades">
+                        <div class="evento"><strong>10:00 am</strong> Taller de Reciclaje
+                            <button class="btn-inscribir btn-detalles" data-titulo="Taller de Reciclaje Creativo"
+                                data-hora="10:00 am - 12:00 md" data-lugar="Carpa de Emprendimiento"
+                                data-desc="Convierte materiales de desecho en artículos útiles. Cupo limitado a 20 personas.">Detalles</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dia"><span class="num-dia">23</span>
+                    <div class="actividades">
+                        <div class="evento"><strong>10:00 am</strong> Danza Contemporánea
+                            <button class="btn-inscribir btn-detalles" data-titulo="Taller de Danza Contemporánea"
+                                data-hora="10:00 am - 11:30 am" data-lugar="Salón de Expresión Corporal"
+                                data-desc="Clase abierta para todos los niveles. Mejora tu flexibilidad y expresión a través del movimiento libre.">Detalles</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- ========================================== -->
+    <!-- MODAL DE DETALLES DE ACTIVIDAD             -->
+    <!-- ========================================== -->
+    <div id="modal-actividad" class="modal-overlay">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3 id="modal-titulo">Título de la Actividad</h3>
+            <p class="modal-info"><strong>🕒 Horario:</strong> <span id="modal-hora"></span></p>
+            <p class="modal-info"><strong>📍 Ubicación:</strong> <span id="modal-lugar"></span></p>
+            <hr>
+            <p id="modal-desc" class="modal-descripcion">Descripción detallada aquí.</p>
+
+            <!-- Botones de Acción Simulados -->
+            <div class="modal-acciones">
+                <button class="btn-outline-modal">Guardar en Calendario</button>
+                <button class="btn-primario-modal">Confirmar Asistencia</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER Y CHATBOT -->
+    <footer class="footer-principal">
+        <div class="footer-contenido">
+            <div class="logos-footer">LaLibertad</div>
+            <p>Contáctenos: info@lalibertadcr.org | Tel: +506 2276-9400</p>
+        </div>
+
+        <input type="checkbox" id="chatbot-toggle" hidden>
+        <div class="chatbot-alerta">
+            <p>¿Querés escoger las siguientes actividades para el próximo mes?</p>
+        </div>
+
+        <div class="chatbot-widget">
+            <div class="chatbot-header">
+                <span>Buzón y Asistente Virtual</span>
+                <label for="chatbot-toggle" class="close-btn">✖</label>
+            </div>
+            <div class="chatbot-body">
+                <div class="chat-historial" id="chat-historial">
+                    <div class="msg bot-msg">¡Hola! ¿En qué te puedo ayudar hoy?</div>
+                </div>
+                <div id="chat-opciones">
+                    <button class="btn-chat chat-interactivo" data-reply="votar">Votar por actividades del mes</button>
+                    <div class="faq-section">
+                        <span class="faq-titulo">Preguntas Frecuentes:</span>
+                        <div class="faq-grid">
+                            <button class="sub-btn chat-interactivo" data-reply="llegar">📍 Cómo llegar</button>
+                            <button class="sub-btn chat-interactivo" data-reply="horarios">🕒 Horarios</button>
+                            <button class="sub-btn chat-interactivo" data-reply="contacto">📞 Contactos</button>
+                            <button class="sub-btn chat-interactivo" data-reply="cursos">📅 Cursos</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="chat-input-container">
+                    <input type="text" id="chat-input" placeholder="Escribe aquí..." disabled>
+                    <button id="chat-send" disabled>➤</button>
+                </div>
+            </div>
+        </div>
+        <label for="chatbot-toggle" class="chatbot-fab"><span class="icon-open">💬</span><span
+                class="icon-close">✖</span></label>
+    </footer>
+
+    <!-- SCRIPT PARA CHATBOT Y MODAL -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // -----------------------------------------
+            // 1. LÓGICA DEL MODAL DE CALENDARIO
+            // -----------------------------------------
+            const modal = document.getElementById('modal-actividad');
+            const btnCerrarModal = document.querySelector('.close-modal');
+            const botonesDetalles = document.querySelectorAll('.btn-detalles');
+
+            const elTitulo = document.getElementById('modal-titulo');
+            const elHora = document.getElementById('modal-hora');
+            const elLugar = document.getElementById('modal-lugar');
+            const elDesc = document.getElementById('modal-desc');
+
+            botonesDetalles.forEach(boton => {
+                boton.addEventListener('click', (e) => {
+                    // Extraemos los datos del botón
+                    const datos = e.target.dataset;
+
+                    // Llenamos el modal
+                    elTitulo.textContent = datos.titulo;
+                    elHora.textContent = datos.hora;
+                    elLugar.textContent = datos.lugar;
+                    elDesc.textContent = datos.desc;
+
+                    // Mostramos el modal
+                    modal.classList.add('active');
+                });
+            });
+
+            // Cerrar modal al click en la "X"
+            btnCerrarModal.addEventListener('click', () => {
+                modal.classList.remove('active');
+            });
+
+            // Cerrar modal al clickear afuera del contenido
+            window.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.classList.remove('active');
+                }
+            });
+
+            // -----------------------------------------
+            // 2. LÓGICA DEL CHATBOT INTERACTIVO
+            // -----------------------------------------
+            const botonesChat = document.querySelectorAll('.chat-interactivo');
+            const historialChat = document.getElementById('chat-historial');
+            const inputChat = document.getElementById('chat-input');
+            const btnSend = document.getElementById('chat-send');
+            const divOpciones = document.getElementById('chat-opciones');
+
+            let estadoChat = 'inicio';
+            let actividadSeleccionada = '';
+
+            const respuestasBot = {
+                "llegar": "Estamos ubicados en Fátima de Desamparados. Podés buscar 'Parque La Libertad' en Waze.",
+                "horarios": "El parque está abierto todos los días de 5:00 a.m. a 6:00 p.m.",
+                "contacto": "Escribinos a info@lalibertadcr.org o llamanos al +506 2276-9400.",
+                "cursos": "Las matrículas abren la primera semana del mes. Revisá el Portal Web Ultraligero."
+            };
+
+            function agregarMensaje(texto, emisor) {
+                const clase = emisor === 'bot' ? 'bot-msg' : 'user-msg';
+                historialChat.innerHTML += `<div class="msg ${clase}">${texto}</div>`;
+                historialChat.scrollTop = historialChat.scrollHeight;
+            }
+
+            function iniciarVotacion() {
+                estadoChat = 'esperando_actividad';
+                divOpciones.style.display = 'none';
+                inputChat.disabled = false;
+                btnSend.disabled = false;
+                inputChat.focus();
+                inputChat.placeholder = "Digita el número o nombre...";
+
+                const opcionesActividades = `
+          ¡Genial! Estas son las propuestas del mes:<br><br>
+          <strong>1.</strong> Taller de Arte Urbano<br>
+          <strong>2.</strong> Curso de HTML y SCSS<br>
+          <strong>3.</strong> Danza Contemporánea<br>
+          <strong>4.</strong> Voluntariado Ambiental<br><br>
+          ¿Cuál es tu favorita?
+        `;
+                agregarMensaje(opcionesActividades, 'bot');
+            }
+
+            botonesChat.forEach(boton => {
+                boton.addEventListener('click', (e) => {
+                    const textoBoton = e.target.innerText.replace(/📍|🕒|📞|📅/g, '').trim();
+                    const tipoRespuesta = e.target.getAttribute('data-reply');
+                    agregarMensaje(textoBoton, 'user');
+                    setTimeout(() => {
+                        if (tipoRespuesta === 'votar') { iniciarVotacion(); }
+                        else { agregarMensaje(respuestasBot[tipoRespuesta], 'bot'); }
+                    }, 500);
+                });
+            });
+
+            function procesarInputUsuario() {
+                const texto = inputChat.value.trim();
+                if (!texto) return;
+
+                agregarMensaje(texto, 'user');
+                inputChat.value = '';
+
+                setTimeout(() => {
+                    if (estadoChat === 'esperando_actividad') {
+                        actividadSeleccionada = texto;
+                        estadoChat = 'esperando_correo';
+                        inputChat.placeholder = "ejemplo@correo.com";
+                        agregarMensaje(`Excelente, anotamos tu preferencia por: <strong>${actividadSeleccionada}</strong>.<br><br>Para validar tu voto y avisarte si se aprueba, por favor escribí tu correo electrónico:`, 'bot');
+
+                    } else if (estadoChat === 'esperando_correo') {
+                        const correo = texto;
+                        estadoChat = 'inicio';
+                        inputChat.disabled = true;
+                        btnSend.disabled = true;
+                        inputChat.placeholder = "Chat finalizado";
+                        divOpciones.style.display = 'block';
+                        agregarMensaje(`¡Listo! Hemos registrado tu voto con el correo <strong>${correo}</strong>.<br><br>¿En qué más te puedo ayudar?`, 'bot');
+                    }
+                }, 600);
+            }
+
+            btnSend.addEventListener('click', procesarInputUsuario);
+            inputChat.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') procesarInputUsuario();
+            });
+        });
+    </script>
+</body>
+
+</html>

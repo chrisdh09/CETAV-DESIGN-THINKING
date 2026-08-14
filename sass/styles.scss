@@ -1,0 +1,768 @@
+// ==========================================
+// Variables y Paleta de Colores
+// ==========================================
+$color-naranja: #e85d22;
+$color-naranja-oscuro: #cc4d1a;
+$color-azul-oscuro: #1b2a47;
+$color-fondo: #ffffff;
+$color-gris-claro: #f4f4f4;
+$color-texto: #333333;
+$color-blanco: #ffffff;
+
+$radio-borde: 8px;
+$sombra-fuerte: 0 6px 20px rgba(0,0,0,0.25);
+
+// ==========================================
+// Reset y Base (Ultraligero)
+// ==========================================
+* { 
+  margin: 0; 
+  padding: 0; 
+  box-sizing: border-box; 
+}
+
+html { 
+  scroll-behavior: smooth; 
+}
+
+body { 
+  font-family: Arial, sans-serif; 
+  color: $color-texto; 
+  background-color: $color-fondo; 
+  line-height: 1.5; 
+  display: flex; 
+  flex-direction: column; 
+  min-height: 100vh; 
+}
+
+.fondo-portal { 
+  background-color: #fff9f6; 
+}
+
+// ==========================================
+// NAVBAR (Mobile-First)
+// ==========================================
+.navbar { 
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center; 
+  padding: 1rem 5%; 
+  background: $color-blanco; 
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1); 
+  position: sticky; 
+  top: 0; 
+  z-index: 100; 
+  flex-wrap: wrap; 
+
+  .logo { 
+    font-weight: 900; 
+    font-size: 1.4rem; 
+    color: $color-texto; 
+  } 
+
+  .menu-icon { 
+    font-size: 1.8rem; 
+    cursor: pointer; 
+    display: block; 
+    color: $color-texto; 
+
+    @media (min-width: 1024px) { 
+      display: none; 
+    } 
+  } 
+
+  .nav-links { 
+    width: 100%; 
+    display: none; 
+    flex-direction: column; 
+    gap: 1rem; 
+    padding-top: 1rem; 
+
+    a { 
+      color: $color-texto; 
+      text-decoration: none; 
+      font-size: 0.85rem; 
+      font-weight: 600; 
+      display: flex; 
+      align-items: center; 
+      gap: 0.3rem; 
+      transition: color 0.2s; 
+
+      &:hover { 
+        color: $color-naranja; 
+      } 
+
+      .arrow { 
+        font-size: 0.6rem; 
+        color: #999; 
+      } 
+    } 
+
+    .link-ultraligero { 
+      color: $color-naranja; 
+    } 
+
+    .btn-donar { 
+      background: $color-naranja; 
+      color: $color-blanco; 
+      border: none; 
+      padding: 0.6rem 1.5rem; 
+      border-radius: 4px; 
+      font-weight: bold; 
+      cursor: pointer; 
+      font-size: 0.85rem; 
+      align-self: flex-start; 
+      transition: background 0.2s; 
+
+      &:hover { 
+        background: $color-naranja-oscuro; 
+      } 
+    } 
+
+    @media (min-width: 1024px) { 
+      width: auto; 
+      display: flex; 
+      flex-direction: row; 
+      align-items: center; 
+      padding-top: 0; 
+      gap: 1.25rem; 
+
+      .btn-donar { 
+        align-self: auto; 
+      } 
+    } 
+  } 
+
+  #menu-toggle:checked ~ .nav-links { 
+    display: flex; 
+  } 
+}
+
+// ==========================================
+// CHATBOT FLOTANTE (Anidado en el Footer)
+// ==========================================
+.chatbot-fab { 
+  position: fixed; 
+  bottom: 20px; 
+  right: 20px; 
+  width: 60px; 
+  height: 60px; 
+  background-color: $color-naranja; 
+  color: $color-blanco; 
+  border-radius: 50%; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  font-size: 1.8rem; 
+  box-shadow: $sombra-fuerte; 
+  cursor: pointer; 
+  z-index: 10000; 
+  transition: transform 0.3s ease, background-color 0.3s; 
+
+  &:hover { 
+    background-color: $color-naranja-oscuro; 
+    transform: scale(1.05); 
+  } 
+
+  .icon-close { 
+    display: none; 
+    font-size: 1.2rem; 
+  } 
+}
+
+.chatbot-alerta { 
+  position: fixed; 
+  bottom: 95px; 
+  right: 20px; 
+  background: $color-naranja; 
+  color: $color-blanco; 
+  padding: 1rem; 
+  border-radius: 12px; 
+  border-bottom-right-radius: 4px; 
+  width: 250px; 
+  font-weight: bold; 
+  text-align: center; 
+  font-size: 0.85rem; 
+  box-shadow: $sombra-fuerte; 
+  z-index: 9999; 
+  transition: opacity 0.3s ease; 
+
+  &::after { 
+    content: ''; 
+    position: absolute; 
+    bottom: -10px; 
+    right: 15px; 
+    border-width: 10px 10px 0 0; 
+    border-style: solid; 
+    border-color: $color-naranja transparent transparent transparent; 
+  } 
+}
+
+.chatbot-widget { 
+  position: fixed; 
+  bottom: 95px; 
+  right: 20px; 
+  width: 320px; 
+  max-width: calc(100vw - 40px); 
+  background: $color-blanco; 
+  border-radius: 12px; 
+  overflow: hidden; 
+  box-shadow: $sombra-fuerte; 
+  border: 1px solid rgba(0,0,0,0.1); 
+  z-index: 9999; 
+  display: none; 
+  flex-direction: column; 
+
+  .chatbot-header { 
+    background: darken($color-naranja, 10%); 
+    color: $color-blanco; 
+    padding: 0.75rem 1rem; 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    font-weight: bold; 
+    font-size: 0.95rem; 
+
+    .close-btn { 
+      cursor: pointer; 
+      font-size: 1.1rem; 
+    } 
+  } 
+
+  .chatbot-body { 
+    padding: 1rem; 
+    display: flex; 
+    flex-direction: column; 
+    gap: 0.75rem; 
+
+    .chat-historial {
+      display: flex; 
+      flex-direction: column; 
+      gap: 0.5rem; 
+      max-height: 250px; 
+      overflow-y: auto; 
+      padding-bottom: 0.5rem;
+
+      &::-webkit-scrollbar { 
+        width: 4px; 
+      } 
+      
+      &::-webkit-scrollbar-thumb { 
+        background: #ccc; 
+        border-radius: 4px; 
+      }
+
+      .msg { 
+        padding: 0.5rem 0.75rem; 
+        border-radius: 8px; 
+        font-size: 0.85rem; 
+        max-width: 85%; 
+        animation: fadeIn 0.3s ease; 
+      }
+
+      .bot-msg { 
+        background-color: #fff3ed; 
+        color: darken($color-naranja-oscuro, 10%); 
+        border-bottom-left-radius: 0; 
+        align-self: flex-start; 
+        border: 1px solid lighten($color-naranja, 30%); 
+      }
+
+      .user-msg { 
+        background-color: $color-azul-oscuro; 
+        color: $color-blanco; 
+        border-bottom-right-radius: 0; 
+        align-self: flex-end; 
+      }
+    }
+
+    .btn-chat { 
+      width: 100%; 
+      background: $color-gris-claro; 
+      border: 1px solid #ccc; 
+      padding: 0.6rem; 
+      border-radius: 6px; 
+      cursor: pointer; 
+      font-weight: bold; 
+      text-align: left; 
+      font-size: 0.85rem; 
+
+      &:hover { 
+        background: #e2e2e2; 
+      } 
+    } 
+
+    .faq-section { 
+      margin-top: 0.2rem; 
+
+      .faq-titulo { 
+        font-size: 0.8rem; 
+        font-weight: bold; 
+        color: $color-azul-oscuro; 
+        display: block; 
+        margin-bottom: 0.5rem; 
+      } 
+
+      .faq-grid { 
+        display: grid; 
+        grid-template-columns: 1fr 1fr; 
+        gap: 0.5rem; 
+
+        .sub-btn { 
+          background: #fff3ed; 
+          border: 1px solid $color-naranja; 
+          color: $color-naranja-oscuro; 
+          padding: 0.5rem; 
+          font-size: 0.75rem; 
+          border-radius: 6px; 
+          cursor: pointer; 
+          text-align: left; 
+
+          &:hover { 
+            background: $color-naranja; 
+            color: $color-blanco; 
+          } 
+        } 
+      } 
+    } 
+
+    .chat-input-container {
+      display: flex; 
+      gap: 0.5rem; 
+      margin-top: 0.5rem; 
+      border-top: 1px solid #eee; 
+      padding-top: 0.75rem;
+
+      input {
+        flex: 1; 
+        padding: 0.5rem; 
+        border: 1px solid #ccc; 
+        border-radius: 4px; 
+        font-size: 0.85rem; 
+        outline: none;
+
+        &:focus { 
+          border-color: $color-naranja; 
+        }
+
+        &:disabled { 
+          background: #f9f9f9; 
+          cursor: not-allowed; 
+        }
+      }
+
+      button {
+        background: $color-naranja; 
+        color: $color-blanco; 
+        border: none; 
+        padding: 0.5rem 0.75rem; 
+        border-radius: 4px; 
+        cursor: pointer; 
+        font-weight: bold;
+
+        &:hover:not(:disabled) { 
+          background: $color-naranja-oscuro; 
+        }
+
+        &:disabled { 
+          background: #ccc; 
+          cursor: not-allowed; 
+        }
+      }
+    }
+  } 
+}
+
+#chatbot-toggle:checked { 
+  & ~ .chatbot-widget { 
+    display: flex; 
+  } 
+  & ~ .chatbot-alerta { 
+    display: none; 
+  } 
+  & ~ .chatbot-fab { 
+    background-color: $color-azul-oscuro; 
+    .icon-open { 
+      display: none; 
+    } 
+    .icon-close { 
+      display: block; 
+    } 
+  } 
+}
+
+// ==========================================
+// MODAL DE DETALLES
+// ==========================================
+.modal-overlay {
+  display: none; 
+  position: fixed; 
+  top: 0; 
+  left: 0; 
+  width: 100%; 
+  height: 100%; 
+  background: rgba(27, 42, 71, 0.6); 
+  z-index: 100000; 
+  align-items: center; 
+  justify-content: center; 
+  padding: 1rem; 
+  opacity: 0; 
+  transition: opacity 0.3s ease;
+
+  &.active {
+    display: flex;
+    opacity: 1;
+  }
+
+  .modal-content {
+    background: $color-blanco;
+    border-radius: $radio-borde;
+    padding: 2rem;
+    width: 100%;
+    max-width: 450px;
+    position: relative;
+    box-shadow: $sombra-fuerte;
+    transform: translateY(-20px);
+    transition: transform 0.3s ease;
+
+    h3 { 
+      color: $color-naranja; 
+      margin-bottom: 1.2rem; 
+      padding-right: 1.5rem; 
+      font-size: 1.3rem;
+    }
+    
+    .modal-info { 
+      font-size: 0.9rem; 
+      color: $color-azul-oscuro; 
+      margin-bottom: 0.4rem; 
+    }
+    
+    hr { 
+      border: 0; 
+      border-top: 1px solid #eee; 
+      margin: 1.5rem 0; 
+    }
+    
+    .modal-descripcion { 
+      font-size: 0.95rem; 
+      color: #555; 
+      line-height: 1.6; 
+      margin-bottom: 1.5rem; 
+    }
+    
+    .modal-acciones {
+      display: flex; 
+      gap: 0.5rem; 
+      flex-direction: column;
+      
+      @media (min-width: 480px) { 
+        flex-direction: row; 
+      }
+      
+      button { 
+        flex: 1; 
+        padding: 0.75rem; 
+        border-radius: 4px; 
+        font-weight: bold; 
+        cursor: pointer; 
+        font-size: 0.85rem; 
+        transition: 0.2s; 
+      }
+      
+      .btn-outline-modal { 
+        background: transparent; 
+        border: 2px solid $color-azul-oscuro; 
+        color: $color-azul-oscuro; 
+        
+        &:hover { 
+          background: $color-azul-oscuro; 
+          color: $color-blanco; 
+        } 
+      }
+      
+      .btn-primario-modal { 
+        background: $color-naranja; 
+        border: 2px solid $color-naranja; 
+        color: $color-blanco; 
+        
+        &:hover { 
+          background: $color-naranja-oscuro; 
+          border-color: $color-naranja-oscuro; 
+        } 
+      }
+    }
+    
+    .close-modal {
+      position: absolute; 
+      top: 15px; 
+      right: 20px; 
+      font-size: 1.8rem; 
+      cursor: pointer; 
+      color: #ccc; 
+      transition: 0.2s;
+      
+      &:hover { 
+        color: $color-naranja; 
+      }
+    }
+  }
+  
+  &.active .modal-content {
+    transform: translateY(0);
+  }
+}
+
+// ==========================================
+// SECCIONES DEL INDEX (Clon Low-Fi)
+// ==========================================
+main { 
+  flex: 1; 
+}
+
+section { 
+  padding: 3rem 5%; 
+}
+
+.hero { 
+  background: $color-gris-claro; 
+  height: 250px; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+
+  h1 { 
+    font-size: 2.5rem; 
+    color: $color-blanco; 
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3); 
+  } 
+
+  span { 
+    color: $color-naranja; 
+  } 
+}
+
+.banner-donacion { 
+  background: $color-naranja; 
+  color: $color-blanco; 
+  text-align: center; 
+  padding: 2rem 1rem; 
+}
+
+.seccion-info { 
+  text-align: center; 
+
+  .texto { 
+    margin-bottom: 2rem; 
+    
+    h3 { 
+      color: $color-azul-oscuro; 
+      margin-bottom: 1rem; 
+    } 
+  } 
+
+  .video-placeholder { 
+    background: #000; 
+    color: #fff; 
+    height: 200px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    border-radius: $radio-borde; 
+  } 
+}
+
+.seccion-grid { 
+  h3 { 
+    color: $color-azul-oscuro; 
+    margin-bottom: 1.5rem; 
+    border-bottom: 2px solid $color-naranja; 
+    display: inline-block; 
+    padding-bottom: 0.5rem; 
+  } 
+
+  .grid-4 { 
+    display: grid; 
+    gap: 1rem; 
+    grid-template-columns: 1fr; 
+
+    @media (min-width: 768px) { 
+      grid-template-columns: repeat(4, 1fr); 
+    } 
+  } 
+
+  .card { 
+    background: $color-gris-claro; 
+    height: 150px; 
+    border-radius: $radio-borde; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    font-weight: bold; 
+    text-align: center; 
+    padding: 1rem; 
+    border-top: 4px solid $color-naranja; 
+  } 
+}
+
+// ==========================================
+// PORTAL ULTRALIGERO (Calendario)
+// ==========================================
+.contenedor-calendario { 
+  padding: 3rem 5%; 
+  max-width: 1200px; 
+  margin: 0 auto; 
+  
+  .cabecera-portal { 
+    text-align: center; 
+    margin-bottom: 2rem; 
+    
+    h2 { 
+      color: $color-naranja; 
+      font-size: 2rem; 
+    } 
+    
+    p { 
+      color: gray; 
+      font-size: 0.95rem; 
+    } 
+  } 
+  
+  .calendario-mes { 
+    background: $color-blanco; 
+    border-radius: $radio-borde; 
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05); 
+    padding: 1rem; 
+    border: 1px solid lighten($color-naranja, 30%); 
+    
+    .dias-semana { 
+      display: none; 
+    } 
+    
+    .grilla-dias { 
+      display: flex; 
+      flex-direction: column; 
+      gap: 1rem; 
+    } 
+    
+    .dia { 
+      background: $color-blanco; 
+      border: 1px solid #eee; 
+      border-radius: 6px; 
+      padding: 1rem; 
+      border-left: 4px solid $color-naranja; 
+      
+      &.vacio { 
+        display: none; 
+      } 
+      
+      .num-dia { 
+        font-weight: bold; 
+        color: $color-azul-oscuro; 
+        font-size: 1.2rem; 
+        display: block; 
+        margin-bottom: 0.5rem; 
+      } 
+      
+      .actividades { 
+        display: flex; 
+        flex-direction: column; 
+        gap: 0.5rem; 
+        
+        .evento { 
+          background: #fff3ed; 
+          padding: 0.5rem; 
+          border-radius: 4px; 
+          font-size: 0.85rem; 
+          display: flex; 
+          flex-direction: column; 
+          gap: 0.4rem; 
+          
+          strong { 
+            color: $color-naranja-oscuro; 
+          } 
+          
+          .btn-inscribir { 
+            background: transparent; 
+            border: 1px solid $color-naranja; 
+            color: $color-naranja; 
+            padding: 0.3rem 0.6rem; 
+            border-radius: 4px; 
+            cursor: pointer; 
+            font-size: 0.75rem; 
+            align-self: flex-start; 
+            font-weight: 600;
+            
+            &:hover { 
+              background: $color-naranja; 
+              color: $color-blanco; 
+            } 
+          } 
+        } 
+      } 
+    } 
+
+    @media (min-width: 768px) { 
+      .dias-semana { 
+        display: grid; 
+        grid-template-columns: repeat(7, 1fr); 
+        text-align: center; 
+        font-weight: bold; 
+        color: $color-azul-oscuro; 
+        padding-bottom: 1rem; 
+        border-bottom: 2px solid $color-gris-claro; 
+        margin-bottom: 1rem; 
+      } 
+      
+      .grilla-dias { 
+        display: grid; 
+        grid-template-columns: repeat(7, 1fr); 
+        gap: 0.5rem; 
+      } 
+      
+      .dia { 
+        min-height: 120px; 
+        border-left: 1px solid #eee; 
+        
+        &.vacio { 
+          display: block; 
+          background: transparent; 
+          border: none; 
+        } 
+      } 
+    } 
+  } 
+}
+
+// ==========================================
+// FOOTER PRINCIPAL
+// ==========================================
+.footer-principal { 
+  background-color: $color-azul-oscuro; 
+  color: $color-blanco; 
+  padding: 3rem 5%; 
+  display: flex; 
+  flex-direction: column; 
+  gap: 1rem; 
+  margin-top: auto; 
+
+  .logos-footer { 
+    font-weight: 900; 
+    font-size: 1.2rem; 
+    margin-bottom: 0.5rem; 
+  } 
+}
+
+// ==========================================
+// ANIMACIONES GLOBALES
+// ==========================================
+@keyframes fadeIn { 
+  from { 
+    opacity: 0; 
+    transform: translateY(5px); 
+  } 
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  } 
+}
